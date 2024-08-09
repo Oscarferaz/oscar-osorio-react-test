@@ -1,6 +1,11 @@
+import { Outlet } from "react-router-dom"
+
 const Products = () => {
     return(
-        <div>Product</div>
+        <>
+            <div>Product</div>
+            <Outlet />
+        </>
     )
 }
 
