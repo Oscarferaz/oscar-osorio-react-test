@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 const LoginForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [cookies, setCookie] = useCookies(['auth'])
+    const [, setCookie] = useCookies(['auth'])
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,7 +26,7 @@ const LoginForm = () => {
         ev.preventDefault();
         if(mail !== getLocalStorage('username') || password !== getLocalStorage('password')) return
         const date = new Date()
-        date.setTime(date.getTime() + (5*60*1000))
+        date.setTime(date.getTime() + (60*60*1000))
         setCookie('auth', true, {path: '/', expires: date})
         dispatch(login(true))
         navigate('/products')

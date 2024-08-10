@@ -1,7 +1,11 @@
-body{
-    background-color: #0f131a;
-    color: #ffffff;
+*, ::after, ::before{
+    box-sizing: border-box;
 }
+
+body{
+    margin: 0;
+}
+
 
 #root{
     display: flex;
@@ -14,7 +18,7 @@ form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1a1d24;
+    background-color: #f8f4ff87;
     padding: 20px;
     border-radius: 8px;
     max-width: 400px;
@@ -51,4 +55,10 @@ form > button {
 
 form > button:hover{
     background-color: #0056b3;
+}
+
+.container-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

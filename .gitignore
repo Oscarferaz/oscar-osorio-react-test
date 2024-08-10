@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 package-lock.json
+vite.config.d.ts
+tsconfig.node.tsbuildinfo
 
 # Editor directories and files
 .vscode/*

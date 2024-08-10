@@ -1,5 +1,5 @@
 .table{
-    width: 370px !important;
+    width: 470px !important;
     color: black;
     
 }
@@ -10,10 +10,13 @@
     justify-content: center;
 }
 
+
 .container{
-    background-color: #1a1d24;
+    background-color: #f8f4ff87;
     padding: 40px;
     overflow: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .filterProduct{

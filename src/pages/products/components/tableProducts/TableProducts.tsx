@@ -13,11 +13,6 @@ import { Product } from "@/models/product"
 const { Column, HeaderCell, Cell } = Table;
 
 const defaultColumns = [
-    // {
-    //     key: 'id',
-    //     label: 'Id',
-    //     width: 70
-    // },
     {
         key: 'title',
         label: 'Nombre',
@@ -30,8 +25,15 @@ const defaultColumns = [
     },
 ]
 
+interface ActionCellProps {
+    dataKey: string;
+    onClick: (event: React.MouseEvent, rowData: Product) => void;
+    legend: string;
+    [key: string]: any;
+  }
 
-const ActionCell = ({ rowData, dataKey, onClick, legend, ...props }) => {
+
+const ActionCell: React.FC<ActionCellProps> = ({ rowData, dataKey, onClick, legend, ...props }) => {
     return (
       <Cell {...props} style={{ padding: '6px' }}>
         <Button
@@ -61,7 +63,7 @@ const TableProducts = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const [limit, setLimit] = useState(2);
+    const [limit, ] = useState(2);
     const [page, setPage] = useState(1);
 
     const fecthData = async () => {
@@ -108,11 +110,8 @@ const TableProducts = () => {
         setLoading(false);
     };
 
-    const paginatedData = sortData().filter((v, i) => {
-        const start = limit * (page - 1);
-        const end = start + limit;
-        return i >= start && i < end;
-      });
+    const paginatedData = sortData().slice((page - 1) * limit, page * limit);
+
 
 
 
@@ -126,9 +125,10 @@ const TableProducts = () => {
         setSearchTerm(event.target.value);
     };
 
-    const handleDeleteProduct = (event: React.MouseEvent, id: number | string) => {
+    const handleDeleteProduct = (event: React.MouseEvent, rowData: Product) => {
+        console.log(rowData)
         event.stopPropagation();
-        dispatch(deleteProduct(id))
+        dispatch(deleteProduct(rowData))
     }
     
     const handleEditProduct = (event: React.MouseEvent, rowData: Product) => {
@@ -159,18 +159,18 @@ const TableProducts = () => {
                     defaultColumns.map(column => {
                     const { key, label, ...rest } = column;
                         return (
-                        <Column {...rest} key={key} sortable>
+                        <Column fullText {...rest} key={key} sortable>
                                 <HeaderCell>{label}</HeaderCell>
                                 <Cell dataKey={key}/>
                         </Column>
                     )})
                 }
-                 <Column>
+                 <Column width={100}>
                     <HeaderCell>Editar</HeaderCell>
                     <ActionCell dataKey="id" onClick={handleEditProduct} legend={'Editar'}/>
                 </Column>
 
-                <Column>
+                <Column width={100}>
                     <HeaderCell>Borrar</HeaderCell>
                     <ActionCell dataKey="id" onClick={handleDeleteProduct} legend={'Borrar'}/>
                 </Column>
