@@ -16,6 +16,7 @@ const AppRouter = () => {
     return(
         <HashRouter>
             <Routes>
+                <Route path="/" element={<Navigate to="/products" />} />
                 <Route path="/login" element={isAuthenticated ? <Navigate to="/products" /> : <Login />}/>
                 <Route path="/" element={<PrivateRoute/>}>
                     <Route path="/users" element={<Users/>}/>

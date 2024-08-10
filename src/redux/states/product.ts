@@ -22,7 +22,7 @@ export const ProductsSlice = createSlice({
             return state
         },
         updateProduct: (state, action) => {
-            setLocalStorage('products', action.payload)
+            setLocalStorage('products', JSON.stringify(action.payload))
             state = action.payload
             return state
         }
