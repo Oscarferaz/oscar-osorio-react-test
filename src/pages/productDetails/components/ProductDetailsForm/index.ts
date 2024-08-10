@@ -1,0 +1,1 @@
+export { default as ProductDetailsForm} from './ProductDetailsForm'

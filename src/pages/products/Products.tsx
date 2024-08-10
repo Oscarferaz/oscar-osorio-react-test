@@ -1,10 +1,9 @@
-import { Outlet } from "react-router-dom"
+import { TableProducts } from "./components/tableProducts"
 
 const Products = () => {
     return(
         <>
-            <div>Product</div>
-            <Outlet />
+            <TableProducts/>
         </>
     )
 }

@@ -4,6 +4,8 @@ import { getLocalStorage, setLocalStorage } from './utilities'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import './global.scss'; 
+import 'rsuite/dist/rsuite-no-reset.css';
+
 
 
 function App() {

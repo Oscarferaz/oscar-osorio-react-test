@@ -1,0 +1,23 @@
+.table{
+    width: 370px !important;
+    color: black;
+    
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    background-color: #1a1d24;
+    padding: 40px;
+    overflow: auto;
+}
+
+.filterProduct{
+    width: 70%;
+    margin-bottom: 5px;
+    padding: 5px;
+}

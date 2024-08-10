@@ -1,24 +1,21 @@
 import { Product } from "@/models/product"
 import { useState } from "react"
 import styles from './css/CreateProductForm.module.scss'
-import { setLocalStorage } from "@/utilities"
-import { newProduct } from "@/services/products/product"
-import { useDispatch, useSelector } from "react-redux"
-import { addProduct } from "@/redux/states"
-import { AppStore } from "@/redux/store"
 
-const CreateProduct = () => {
-    const stateProducts = useSelector((store: AppStore) => store.products)
-    console.log(stateProducts)
-    const dispatch = useDispatch()
 
-    const [product, setProduct] = useState<Product>({
-        id: 0,
-        title: '',
-        price: 0,
-        description: '',
-        image: ''
-    })
+const CreateProduct = ({
+    initProduct = {
+      id: 0,
+      title: '',
+      price: 0,
+      description: '',
+      image: ''
+    },
+    onSave
+  }: { initProduct?: Product, onSave: (product: Product) => void  }) => {
+  
+   
+    const [product, setProduct] = useState<Product>(initProduct)
 
     const [error, setError] = useState<boolean>(false)
 
@@ -53,22 +50,14 @@ const CreateProduct = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log('df')
         if(notValidateForm()){
             setError(true)
         }else{
             try{
-                const formData = new FormData()
-                formData.append('name', title)
-                formData.append('description', description)
-                formData.append('price', String(price))
-                formData.append('id', String(id))
-                formData.append('image', image)
-                await newProduct(formData)
-                dispatch(addProduct([...stateProducts, product]))
-                setLocalStorage(String(id), image)
+                await onSave(product)
                 alert('Guardado con exito')
             }catch(e){
+                console.log(e)
                 alert('Error al crear el producto')
             }
             
@@ -132,7 +121,7 @@ const CreateProduct = () => {
                 type="file"
                 onChange={handleImageChange}
             />
-            <button type="submit">Create Product</button>
+            <button type="submit">Guardar</button>
             {error && <p className={styles.error}>Faltan campos por llenar</p> }
        </form> 
        
