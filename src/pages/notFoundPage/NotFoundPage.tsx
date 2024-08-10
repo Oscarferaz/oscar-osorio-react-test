@@ -1,6 +1,10 @@
+
+
 const NotFoundPage = () => {
     return(
-        <div>Not found page</div>
+        <div className='container-flex'>
+            <h2>Not found page</h2>
+        </div>
     )
 }
 

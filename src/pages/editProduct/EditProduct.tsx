@@ -34,7 +34,7 @@ const EditProduct = () => {
     return(
         
         product
-        ? <CreateProductForm initProduct={product} onSave={onSave}/>
+        ? <div className="container-flex"><CreateProductForm initProduct={product} onSave={onSave}/></div>
         : null
         
         

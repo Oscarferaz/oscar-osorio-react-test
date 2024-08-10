@@ -1,13 +1,12 @@
 import { ChangeUserData } from "./components/changeUserData"
 
-export type UserProps = {
-	// types...
-}
 
-
-const Users: React.FC<UserProps> =  () => {
+const Users: React.FC =  () => {
     return(
-        <ChangeUserData/>
+        <div className="container-flex">
+            <ChangeUserData/>
+        </div>
+        
     )
 }
 

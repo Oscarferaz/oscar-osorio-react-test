@@ -6,7 +6,10 @@ export type LoginProps = {
 
 const Login: React.FC<LoginProps> = () => {
     return(
-        <LoginForm/>
+        <div className='container-flex'>
+             <LoginForm/>
+        </div>
+       
     )
 }
 

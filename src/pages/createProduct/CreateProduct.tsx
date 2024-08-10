@@ -7,7 +7,7 @@ import { setLocalStorage } from "@/utilities"
 import { useSelector, useDispatch } from "react-redux"
 
 
-const CreateProduct = () => {
+const CreateProduct: React.FC = () => {
 
     const stateProducts = useSelector((store: AppStore) => store.products)
     const dispatch = useDispatch()
@@ -26,7 +26,10 @@ const CreateProduct = () => {
     }
 
     return(
-        <CreateProductForm onSave={onSave}/>
+        <div className="container-flex">
+            <CreateProductForm onSave={onSave}/>
+        </div>
+        
     )
 }
 
