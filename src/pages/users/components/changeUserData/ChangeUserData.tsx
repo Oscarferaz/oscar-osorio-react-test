@@ -1,9 +1,7 @@
-import { getLocalStorage, setLocalStorage, validateConfirmPassword, validateEmail, validatePassword } from "@/utilities";
-import { useState } from "react"
+import { getLocalStorage, setLocalStorage} from "@/utilities";
 import { useCookies } from "react-cookie"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import styles from './css/ChangeUserData.module.scss'
 import { logout } from "@/redux/states";
 import { UserForm } from "@/components";
 import { User } from "@/models/user";
