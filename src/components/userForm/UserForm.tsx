@@ -3,6 +3,8 @@ import { User } from "@/models/user"
 import { Controller, useForm } from "react-hook-form"
 import { emailRegex, passwordRegex } from "@/utilities"
 import { Button, Form } from "rsuite";
+import { useState } from "react";
+import styles from './css/UserForm.module.scss'
 
 
 const defaultValues = {
@@ -17,10 +19,10 @@ interface userForm extends User{
 
 interface PropsLoginForm {
     onClick: (data: User) => void
+    validationOnSubmit?: (data: User) => string | null | undefined
 }
 
-const UserForm: React.FC<PropsLoginForm> = ({onClick}) => {
-
+const UserForm: React.FC<PropsLoginForm> = ({onClick, validationOnSubmit}) => {
     const {
         control,
         handleSubmit,
@@ -30,7 +32,19 @@ const UserForm: React.FC<PropsLoginForm> = ({onClick}) => {
         mode: 'onChange',
         reValidateMode: 'onChange'
     });
-    
+
+    const [error, setError] = useState<null | String | undefined>(null)
+
+    const onSubmit = (data: User) => {
+        if(validationOnSubmit){
+            const message = validationOnSubmit(data)
+            if(message){
+                setError(message)
+                return
+            }
+        }
+        onClick(data)
+    }
 
     return(
         <Form checkTrigger={"change"}>
@@ -56,7 +70,7 @@ const UserForm: React.FC<PropsLoginForm> = ({onClick}) => {
                     pattern: { value: passwordRegex, message: `La contraseña debe tener entre 6 y 12 caracteres, con una mayuscula, un numero y un caracter especial`}
                 }}
                 render={({ field }) => (
-                    <FieldForm field={field} error={errors[field.name]?.message}  label="Contaseña:"/>
+                    <FieldForm field={field} error={errors[field.name]?.message}  label="Contaseña:" type="password"/>
                 )}
             />
 
@@ -69,11 +83,15 @@ const UserForm: React.FC<PropsLoginForm> = ({onClick}) => {
                         value === watch('password') || 'Las contraseñas no coinciden'
                 }}
                 render={({ field }) => (
-                    <FieldForm field={field} error={errors[field.name]?.message}  label="Confirmar contraseña:"/>
+                    <FieldForm field={field} error={errors[field.name]?.message}  label="Confirmar contraseña:" type="password"/>
                 )}
             />
 
-            <Button type="submit" appearance="primary" onClick={handleSubmit(onClick)}>
+            {
+                error && <Form.ControlLabel className={styles.error}>{error} </Form.ControlLabel>
+            }
+
+            <Button type="submit" appearance="primary" onClick={handleSubmit(onSubmit)}>
                 Ingresar
             </Button>
                 

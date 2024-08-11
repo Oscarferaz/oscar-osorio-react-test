@@ -5,14 +5,15 @@ import styles from './css/FieldForm.module.scss'
 interface FieldProps {
     as?: React.ElementType; 
     label: string; 
-    error?: React.ReactNode; 
+    error?: React.ReactNode;
+    type?: string 
     field: {
         name: string,
         value: string,
         onChange: (value: string) => void
     }
 }
-const Field: React.FC<FieldProps> = ({ as: Component = Input, field, label, error, ...rest }) => {
+const Field: React.FC<FieldProps> = ({ as: Component = Input, field, label, error,type =  'text', ...rest }) => {
     return (
       <Form.Group className={styles.width}>
         <Form.ControlLabel>{label} </Form.ControlLabel>
@@ -22,6 +23,7 @@ const Field: React.FC<FieldProps> = ({ as: Component = Input, field, label, erro
           onChange={(value: string) => field.onChange(value)}
           placeholder={label}
           {...rest}
+          type={type}
         />
         <Form.ErrorMessage show={!!error} placement="bottomStart">
           {error}
