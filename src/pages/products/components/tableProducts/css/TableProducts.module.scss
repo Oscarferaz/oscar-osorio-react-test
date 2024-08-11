@@ -1,13 +1,22 @@
-.table{
-    width: 470px !important;
-    color: black;
+// .table{
+//     width: 370px !important;
+//     color: black;
     
-}
+// }
+
 
 .pagination {
     margin-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+.containerControls{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
 
@@ -17,10 +26,11 @@
     overflow: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0px 20px;
 }
 
 .filterProduct{
-    width: 70%;
     margin-bottom: 5px;
     padding: 5px;
-}
+ }

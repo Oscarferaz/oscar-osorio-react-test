@@ -4,12 +4,13 @@
 
 #root{
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 body{
     margin: 0;
 }
-
 form{
     display: flex;
     flex-direction: column;

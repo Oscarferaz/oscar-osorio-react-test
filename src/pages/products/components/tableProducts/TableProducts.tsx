@@ -10,26 +10,24 @@ import { Product } from "@/models/product"
 
 
 
-const { Column, HeaderCell, Cell } = Table;
+const { Column, HeaderCell, Cell } = Table
 
 const defaultColumns = [
     {
         key: 'title',
-        label: 'Nombre',
-        width: 200
+        label: 'Nombre'
     },
     {
         key: 'price',
-        label: 'Precio',
-        width: 100
+        label: 'Precio'
     },
 ]
 
 interface ActionCellProps {
-    dataKey: string;
-    onClick: (event: React.MouseEvent, rowData: Product) => void;
-    legend: string;
-    [key: string]: any;
+    dataKey: string
+    onClick: (event: React.MouseEvent, rowData: Product) => void
+    legend: string
+    [key: string]: any
   }
 
 
@@ -39,14 +37,14 @@ const ActionCell: React.FC<ActionCellProps> = ({ rowData, dataKey, onClick, lege
         <Button
           appearance="link"
           onClick={(ev) => {
-            onClick(ev, rowData);
+            onClick(ev, rowData)
           }}
         >
             {legend}
         </Button>
       </Cell>
-    );
-};
+    )
+}
 
   
 
@@ -56,15 +54,15 @@ const TableProducts = () => {
     const stateProducts = useSelector((store: AppStore) => store.products )
     
     const dispatch = useDispatch()
-    const navigate = useNavigate(); 
+    const navigate = useNavigate() 
 
-    const [sortColumn, setSortColumn] = useState<string | undefined>();
-    const [sortType, setSortType] = useState<'asc' | 'desc' | undefined>();
-    const [loading, setLoading] = useState<boolean>(false);
-    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [sortColumn, setSortColumn] = useState<string | undefined>()
+    const [sortType, setSortType] = useState<'asc' | 'desc' | undefined>()
+    const [loading, setLoading] = useState<boolean>(false)
+    const [searchTerm, setSearchTerm] = useState<string>("")
 
-    const [limit, ] = useState(2);
-    const [page, setPage] = useState(1);
+    const [limit, ] = useState(2)
+    const [page, setPage] = useState(1)
 
     const fecthData = async () => {
         try{
@@ -82,95 +80,99 @@ const TableProducts = () => {
     const filterProducts = () => {
         return stateProducts.filter(product =>
             product.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    };
+        )
+    }
 
     const sortData = () => {
-        let sortedData = filterProducts();
+        let sortedData = filterProducts()
         if (sortColumn && sortType) {
             sortedData.sort((a, b) => {
-                let x = a[sortColumn as keyof typeof a];
-                let y = b[sortColumn as keyof typeof b];
+                let x = a[sortColumn as keyof typeof a]
+                let y = b[sortColumn as keyof typeof b]
                 if (typeof x === 'string') {
-                    x = x.charCodeAt(0);
+                    x = x.charCodeAt(0)
                 }
                 if (typeof y === 'string') {
-                    y = y.charCodeAt(0);
+                    y = y.charCodeAt(0)
                 }
-                return sortType === 'asc' ? x - y : y - x;
-            });
+                return sortType === 'asc' ? x - y : y - x
+            })
         }
-        return sortedData;
-    };
+        return sortedData
+    }
 
     const handleSortColumn = (dataKey: string, sortType?: 'asc' | 'desc') => {
-        setLoading(true);
-        setSortColumn(dataKey);
-        setSortType(sortType);
-        setLoading(false);
-    };
+        setLoading(true)
+        setSortColumn(dataKey)
+        setSortType(sortType)
+        setLoading(false)
+    }
 
-    const paginatedData = sortData().slice((page - 1) * limit, page * limit);
-
-
+    const paginatedData = sortData().slice((page - 1) * limit, page * limit)
 
 
-    const totalPages = Math.ceil(sortData().length / limit);
+
+
+    const totalPages = Math.ceil(sortData().length / limit)
 
     const handleRowClick = (rowData: any) => {
-        navigate(`/products/${rowData.id}`); // Redirigir al detalle del producto
-    };
+        navigate(`/products/${rowData.id}`) 
+    }
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
+        setSearchTerm(event.target.value)
+    }
 
     const handleDeleteProduct = (event: React.MouseEvent, rowData: Product) => {
         console.log(rowData)
-        event.stopPropagation();
+        event.stopPropagation()
         dispatch(deleteProduct(rowData))
     }
     
     const handleEditProduct = (event: React.MouseEvent, rowData: Product) => {
-        event.stopPropagation();
+        event.stopPropagation()
         navigate(`/edit/${rowData.id}`)
     }
 
     return(
         <div className={styles.container}>
-             <input
-                type="text"
-                placeholder="Buscar por nombre..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className={styles.filterProduct} // Asegúrate de tener los estilos correctos
-            />
+            <div className={styles.containerControls}>
+                <input
+                    type="text"
+                    placeholder="Buscar por nombre..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className={styles.filterProduct}
+                />
+                <button>Nuevo</button>
+            </div>
+        
             <Table
                 data={paginatedData}
-                autoHeight
                 sortColumn={sortColumn}
                 sortType={sortType}
                 onSortColumn={handleSortColumn}
                 loading={loading}
                 className={styles.table}
                 onRowClick={handleRowClick}
+                height={400}
             >
                 {
                     defaultColumns.map(column => {
-                    const { key, label, ...rest } = column;
+                    const { key, label, ...rest } = column
                         return (
-                        <Column fullText {...rest} key={key} sortable>
+                        <Column fullText {...rest} key={key} sortable flexGrow={1}>
                                 <HeaderCell>{label}</HeaderCell>
                                 <Cell dataKey={key}/>
                         </Column>
                     )})
                 }
-                 <Column width={100}>
+                 <Column flexGrow={1}>
                     <HeaderCell>Editar</HeaderCell>
                     <ActionCell dataKey="id" onClick={handleEditProduct} legend={'Editar'}/>
                 </Column>
 
-                <Column width={100}>
+                <Column flexGrow={1}>
                     <HeaderCell>Borrar</HeaderCell>
                     <ActionCell dataKey="id" onClick={handleDeleteProduct} legend={'Borrar'}/>
                 </Column>

@@ -1,9 +1,15 @@
+import { Navbar } from "./components/navbar"
 import { TableProducts } from "./components/tableProducts"
 
 const Products = () => {
     return(
         <>
-            <TableProducts/>
+            <Navbar>
+                <button>usuarios</button>
+            </Navbar>
+            <div className="container-flex">
+               <TableProducts/> 
+            </div>
         </>
     )
 }
