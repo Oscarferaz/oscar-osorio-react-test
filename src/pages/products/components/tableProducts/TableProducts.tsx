@@ -3,10 +3,12 @@ import { AppStore } from "@/redux/store"
 import { getData } from "@/services/products/product"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, Pagination, Table } from "rsuite"
+import { Button, IconButton, Pagination, Table } from "rsuite"
 import styles from './css/TableProducts.module.scss'
 import { useNavigate } from "react-router-dom"
 import { Product } from "@/models/product"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -149,7 +151,7 @@ const TableProducts: React.FC = () => {
                     onChange={handleSearchChange}
                     className={styles.filterProduct}
                 />
-                <button onClick={() => navigate('/products/create')}>Nuevo</button>
+                <IconButton icon={<FontAwesomeIcon icon={faPlus}/>} appearance="primary" onClick={() => navigate('/products/create')}/>
             </div>
         
             <Table
