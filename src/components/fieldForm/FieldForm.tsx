@@ -10,7 +10,7 @@ interface FieldProps {
     field: {
         name: string,
         value: string,
-        onChange: (value: string) => void
+        onChange: (value: string | React.ChangeEvent<HTMLInputElement> ) => void 
     }
 }
 const Field: React.FC<FieldProps> = ({ as: Component = Input, field, label, error,type =  'text', ...rest }) => {

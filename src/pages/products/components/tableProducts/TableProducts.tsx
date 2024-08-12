@@ -144,7 +144,7 @@ const TableProducts = () => {
                     onChange={handleSearchChange}
                     className={styles.filterProduct}
                 />
-                <button>Nuevo</button>
+                <button onClick={() => navigate('/products/create')}>Nuevo</button>
             </div>
         
             <Table

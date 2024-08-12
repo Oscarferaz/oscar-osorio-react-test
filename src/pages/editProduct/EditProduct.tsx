@@ -1,4 +1,4 @@
-import { CreateProductForm } from "@/components"
+import { ProductForm } from "@/components"
 import { Product } from "@/models/product"
 import { updateProduct } from "@/redux/states"
 import { AppStore } from "@/redux/store"
@@ -14,12 +14,11 @@ const EditProduct = () => {
 
     const stateProducts = useSelector((store: AppStore) => store.products )
 
-    const [product, setProduct] = useState<Product | null>(null)
+    const [product, setProduct] = useState<Product>()
     
     useEffect(() => {
         const findProduct = stateProducts.find((product: Product) => String(product.id) === String(id))
         if(findProduct) setProduct(findProduct)
-            console.log(findProduct)
     }, [id])
 
     const onSave = (data: Product) => {
@@ -34,7 +33,7 @@ const EditProduct = () => {
     return(
         
         product
-        ? <div className="container-flex"><CreateProductForm initProduct={product} onSave={onSave}/></div>
+        ? <div className="container-flex"><ProductForm initProduct={product} onSave={onSave}/></div>
         : null
         
         

@@ -17,12 +17,12 @@ interface userForm extends User{
     confirmPassword: string
 }
 
-interface PropsLoginForm {
+interface PropsUserForm {
     onClick: (data: User) => void
     validationOnSubmit?: (data: User) => string | null | undefined
 }
 
-const UserForm: React.FC<PropsLoginForm> = ({onClick, validationOnSubmit}) => {
+const UserForm: React.FC<PropsUserForm> = ({onClick, validationOnSubmit}) => {
     const {
         control,
         handleSubmit,
@@ -47,7 +47,7 @@ const UserForm: React.FC<PropsLoginForm> = ({onClick, validationOnSubmit}) => {
     }
 
     return(
-        <Form checkTrigger={"change"}>
+        <Form>
 
             <Controller
                 name="email"

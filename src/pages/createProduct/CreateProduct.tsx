@@ -1,4 +1,4 @@
-import { CreateProductForm } from "@/components"
+import { ProductForm } from "@/components"
 import { Product } from "@/models/product"
 import { addProduct } from "@/redux/states"
 import { AppStore } from "@/redux/store"
@@ -20,14 +20,18 @@ const CreateProduct: React.FC = () => {
         formData.append('price', String(price))
         formData.append('id', String(id))
         formData.append('image', image)
-        await newProduct(formData)
-        dispatch(addProduct([...stateProducts, data]))
-        setLocalStorage(String(id), image)
+        try{
+            await newProduct(formData)
+            dispatch(addProduct([...stateProducts, data]))
+            setLocalStorage(String(id), image)
+        }catch(e){
+            console.log(e)
+        }
     }
 
     return(
         <div className="container-flex">
-            <CreateProductForm onSave={onSave}/>
+            <ProductForm onSave={onSave}/>
         </div>
         
     )

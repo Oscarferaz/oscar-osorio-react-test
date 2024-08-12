@@ -1,3 +1,3 @@
-export * from './createProductForm'
+export * from './productForm'
 
 export * from './userForm'
