@@ -1,1 +1,1 @@
-export { default as ProductDetailsForm} from './ProductDetailsForm'
+export { default as ProductDetailsCard} from './ProductDetailsCard'

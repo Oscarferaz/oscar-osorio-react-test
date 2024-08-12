@@ -1,8 +1,11 @@
-import { ProductDetailsForm } from "./components/ProductDetailsForm"
+import { ProductDetailsCard } from "./components/ProductDetailsForm"
+
 
 const ProductDetails = () => {
     return(
-        <ProductDetailsForm></ProductDetailsForm>
+        <div className="container-flex">
+            <ProductDetailsCard/>
+        </div>  
     )
 }
 
