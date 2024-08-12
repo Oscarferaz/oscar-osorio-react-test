@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import './global.scss'; 
 import 'rsuite/dist/rsuite.css'
+import { AutoLogout } from './components'
+
 
 
 
@@ -17,10 +19,13 @@ function App() {
   
 
   return (
-    <> 
-      <Provider store={store}>
-        <AppRouter/>
-      </Provider>
+    <>
+    
+        <Provider store={store}>
+          <AutoLogout>
+            <AppRouter/>
+          </AutoLogout> 
+        </Provider>
     </>
   )
 }
