@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Navbar } from "./components/navbar"
-import { TableProducts } from "./components/tableProducts"
+import { TableProducts, Navbar, DropDownHeader } from "./components"
 
 const Products = () => {
     const navigate = useNavigate()
@@ -8,7 +7,8 @@ const Products = () => {
     return(
         <>
             <Navbar>
-                <button onClick={() => navigate('/users')}>usuarios</button>
+                {/* <button onClick={() => navigate('/users')}>usuarios</button> */}
+                <DropDownHeader/>
             </Navbar>
             <div className="container-flex">
                <TableProducts/> 

@@ -48,7 +48,7 @@ const ActionCell: React.FC<ActionCellProps> = ({ rowData, dataKey, onClick, lege
 
   
 
-const TableProducts = () => {
+const TableProducts: React.FC = () => {
 
 
     const stateProducts = useSelector((store: AppStore) => store.products )
