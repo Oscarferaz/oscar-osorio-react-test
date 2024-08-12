@@ -67,7 +67,7 @@ const TableProducts = () => {
     const fecthData = async () => {
         try{
             const {data} = await getData()
-            dispatch(addProduct([...stateProducts, data]))
+            dispatch(addProduct([...stateProducts, {...data, id: String(data.id), price: String(data.price)}]))
         }catch(e){
             console.log(e)
         }
@@ -84,22 +84,28 @@ const TableProducts = () => {
     }
 
     const sortData = () => {
-        let sortedData = filterProducts()
+        let sortedData = filterProducts(); 
+    
         if (sortColumn && sortType) {
             sortedData.sort((a, b) => {
-                let x = a[sortColumn as keyof typeof a]
-                let y = b[sortColumn as keyof typeof b]
-                if (typeof x === 'string') {
-                    x = x.charCodeAt(0)
+                const x = a[sortColumn as keyof Product];
+                const y = b[sortColumn as keyof Product];
+    
+                if (typeof x === 'number' && typeof y === 'number') {
+                    return sortType === 'asc' ? x - y : y - x;
                 }
-                if (typeof y === 'string') {
-                    y = y.charCodeAt(0)
+    
+                if (typeof x === 'string' && typeof y === 'string') {
+                    return sortType === 'asc' ? x.localeCompare(y) : y.localeCompare(x);
                 }
-                return sortType === 'asc' ? x - y : y - x
-            })
+    
+                return 0;
+            });
         }
-        return sortedData
-    }
+    
+        return sortedData;
+    };
+    
 
     const handleSortColumn = (dataKey: string, sortType?: 'asc' | 'desc') => {
         setLoading(true)
@@ -124,9 +130,8 @@ const TableProducts = () => {
     }
 
     const handleDeleteProduct = (event: React.MouseEvent, rowData: Product) => {
-        console.log(rowData)
         event.stopPropagation()
-        dispatch(deleteProduct(rowData))
+        dispatch(deleteProduct(rowData.id))
     }
     
     const handleEditProduct = (event: React.MouseEvent, rowData: Product) => {

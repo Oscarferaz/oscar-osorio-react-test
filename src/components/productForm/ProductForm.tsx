@@ -3,6 +3,7 @@ import { Button, Form, Uploader } from "rsuite"
 import { Controller, useForm } from "react-hook-form"
 import { FieldForm } from "../fieldForm"
 import styles from './css/CreateProductForm.module.scss'
+import { useState } from "react"
 
 const defaultValues: Product  = {
     id:'',
@@ -33,17 +34,21 @@ const ProductForm: React.FC<PropProductForm> =  ({ initProduct = defaultValues, 
         reValidateMode: 'onChange'
     })
 
+    const [visibleFieldList, setVisibleFieldList] = useState(false)
+
     const handleImageUpload = (file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
             const imageDataUrl = reader.result as string;
             setValue('image', imageDataUrl);
+            setVisibleFieldList(true)
         }
         reader.readAsDataURL(file);
     }
 
     const onSubmit = async (product: Product) => {
-        await onSave(product)
+        onSave(product)
+        setVisibleFieldList(false)
         reset(defaultValues)
     }
 
@@ -99,7 +104,7 @@ const ProductForm: React.FC<PropProductForm> =  ({ initProduct = defaultValues, 
                 rules={{ 
                     required: 'Imagen es requerido' ,
                 }}
-                render={({ field }) => (
+                render={() => (
                     <Form.Group className={styles.width}>
                         <Form.ControlLabel>Imagen:</Form.ControlLabel>
                     <Uploader 
@@ -109,7 +114,7 @@ const ProductForm: React.FC<PropProductForm> =  ({ initProduct = defaultValues, 
                             if(fileList[0]?.blobFile)  handleImageUpload(fileList[0].blobFile)
                         }}
                         accept="image/*"
-                        id={field.name}
+                        fileListVisible={visibleFieldList}
                     >
                         <Button>
                             Seleccionar Imagen

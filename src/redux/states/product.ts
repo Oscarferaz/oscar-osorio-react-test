@@ -1,5 +1,5 @@
 import { Product } from "@/models/product";
-import { getLocalStorage, setLocalStorage } from "@/utilities";
+import { deleteItemLocalStorage, getLocalStorage, setLocalStorage } from "@/utilities";
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState: Product[] = []
@@ -16,8 +16,9 @@ export const ProductsSlice = createSlice({
             return state
         },
         deleteProduct: (state, action) => {
-            const filteredState = current(state).filter((product: Product ) => String(product.id) !== String(action.payload.id))
+            const filteredState = current(state).filter((product: Product ) => String(product.id) !== String(action.payload))
             setLocalStorage('products', JSON.stringify(filteredState))
+            deleteItemLocalStorage(action.payload)
             state = filteredState
             return state
         },
